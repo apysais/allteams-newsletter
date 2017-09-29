@@ -72,6 +72,12 @@ function run_allteams_newsletter() {
 
 	$plugin = new Allteams_Newsletter();
 	$plugin->run();
-
+	init_updater();
 }
 run_allteams_newsletter();
+function init_updater(){
+	$updater = new AllT_Updater( __FILE__ ); // instantiate our class
+	$updater->set_username( 'apysais' ); // set username
+	$updater->set_repository( 'allteams-newsletter' ); // set repo
+	$updater->initialize(); // initialize the updater
+}
