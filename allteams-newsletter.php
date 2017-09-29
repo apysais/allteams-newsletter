@@ -74,6 +74,7 @@ register_deactivation_hook( __FILE__, 'deactivate_allteams_newsletter' );
  * admin-specific hooks, and public-facing site hooks.
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-allteams-newsletter.php';
+require plugin_dir_path( __FILE__ ) . 'function-helper.php';
 
 /**
  * Begins execution of the plugin.
@@ -85,12 +86,26 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-allteams-newsletter.php';
  * @since    1.0.0
  */
 function run_allteams_newsletter() {
-
 	$plugin = new Allteams_Newsletter();
 	$plugin->run();
 	allteams_news_letter_init_updater();
 }
-run_allteams_newsletter();
+add_action('plugins_loaded', 'run_allteams_newsletter');
+function test(){
+	$ds = new ATN_Model_DataWP;
+	$arg = array(
+		'posts_per_page' => -1,
+		'date_query' => '-8 days'
+	);
+	_dump($ds->query($arg));
+	$event = new ATN_Model_DataEventOrganiser;
+	$arg = array(
+		'event_start_before' => '+7 days'
+	);
+	_dump($event->query($arg));
+	exit();
+}
+//add_action('init','test');
 function allteams_news_letter_init_updater(){
 	$updater = new ATN_Updater( __FILE__ ); // instantiate our class
 	$updater->set_username( 'apysais' ); // set username
