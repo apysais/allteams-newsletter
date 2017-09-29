@@ -31,7 +31,23 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'PLUGIN_NAME_VERSION', '1.0.0' );
-
+/**
+ * For autoloading classes
+ * */
+spl_autoload_register('atn_autoload_class');
+function atn_autoload_class($class_name){
+    if ( false !== strpos( $class_name, 'ATN' ) ) {
+		$include_classes_dir = realpath( get_template_directory( __FILE__ ) ) . DIRECTORY_SEPARATOR;
+		$admin_classes_dir = realpath( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR;
+		$class_file = str_replace( '_', DIRECTORY_SEPARATOR, $class_name ) . '.php';
+		if( file_exists($include_classes_dir . $class_file) ){
+			require_once $include_classes_dir . $class_file;
+		}
+		if( file_exists($admin_classes_dir . $class_file) ){
+			require_once $admin_classes_dir . $class_file;
+		}
+	}
+}
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-allteams-newsletter-activator.php
@@ -72,11 +88,11 @@ function run_allteams_newsletter() {
 
 	$plugin = new Allteams_Newsletter();
 	$plugin->run();
-	init_updater();
+	allteams_news_letter_init_updater();
 }
 run_allteams_newsletter();
-function init_updater(){
-	$updater = new AllT_Updater( __FILE__ ); // instantiate our class
+function allteams_news_letter_init_updater(){
+	$updater = new ATN_Updater( __FILE__ ); // instantiate our class
 	$updater->set_username( 'apysais' ); // set username
 	$updater->set_repository( 'allteams-newsletter' ); // set repo
 	$updater->initialize(); // initialize the updater

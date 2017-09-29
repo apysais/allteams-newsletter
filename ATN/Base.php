@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Base Class Utility
  * */
-abstract class AllT_Base extends AllT_BaseController{
+abstract class ATN_Base extends ATN_BaseController{
 	/**
 	 * holds the error
 	 *

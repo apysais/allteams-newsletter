@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 3.12
  * @access (protected, public)
  * */
-class AllT_Updater{
+class ATN_Updater{
 	/**
 	 * instance of this class
 	 *

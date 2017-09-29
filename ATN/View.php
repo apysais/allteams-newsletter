@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 3.12
  * @access (protected, public)
  * */
-class AllT_View{
+class ATN_View{
 	/**
 	 * instance of this class
 	 *
