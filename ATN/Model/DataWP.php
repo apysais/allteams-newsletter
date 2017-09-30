@@ -85,11 +85,20 @@ class ATN_Model_DataWP{
 		){
 			$posts_per_page = $query_data['posts_per_page'];
 		}
+		//category
+		//array( 'cat' => '2,6,17,38' )
+		$category = '';
+		if( isset($query_data['category']) 
+			&& trim($query_data['category'])!= ''
+		){
+			$category = $query_data['category'];
+		}
 		$args = array(
 			'post_status' => array('future','publish'),
 			'post_type'=> $post_type,
 			'date_query' => $date_query,
-			'posts_per_page' => $posts_per_page
+			'posts_per_page' => $posts_per_page,
+			'cat' => array('cat' => $category)
 		);
 		_dump($args);
 		$query = new WP_Query( $args );

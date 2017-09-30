@@ -103,7 +103,10 @@ class ATN_Model_DataEventOrganiser{
 				'event_start_before' => $event_start_before,
 			);
 			_dump($args);
-			return eo_get_events($args);
+			$eo = eo_get_events($args);
+			//$eo = new WP_Query($args);
+			wp_reset_postdata();
+			return $eo;
 		}
 		
 		return false;

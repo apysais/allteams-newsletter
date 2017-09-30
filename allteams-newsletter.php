@@ -89,23 +89,26 @@ function run_allteams_newsletter() {
 	$plugin = new Allteams_Newsletter();
 	$plugin->run();
 	allteams_news_letter_init_updater();
+	
 }
 add_action('plugins_loaded', 'run_allteams_newsletter');
 function test(){
-	$ds = new ATN_Model_DataWP;
+	//$ds = new ATN_Model_DataWP;
 	$arg = array(
 		'posts_per_page' => -1,
-		'date_query' => '-8 days'
+		'date_query' => '-8 days',
+		'category' => '3'
 	);
-	_dump($ds->query($arg));
+	//_dump($ds->query($arg));
 	$event = new ATN_Model_DataEventOrganiser;
-	$arg = array(
-		'event_start_before' => '+7 days'
+	$arg_event = array(
+		'event_start_before' => '+7 days',
+		'event_category' => array(6)
 	);
-	_dump($event->query($arg));
+	_dump($event->query($arg_event));
 	exit();
 }
-//add_action('init','test');
+add_action('after_setup_theme','test');
 function allteams_news_letter_init_updater(){
 	$updater = new ATN_Updater( __FILE__ ); // instantiate our class
 	$updater->set_username( 'apysais' ); // set username
