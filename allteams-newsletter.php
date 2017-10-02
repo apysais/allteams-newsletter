@@ -75,7 +75,7 @@ register_deactivation_hook( __FILE__, 'deactivate_allteams_newsletter' );
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-allteams-newsletter.php';
 require plugin_dir_path( __FILE__ ) . 'function-helper.php';
-
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 /**
  * Begins execution of the plugin.
  *
@@ -100,15 +100,16 @@ function test(){
 		'category' => '3'
 	);
 	//_dump($ds->query($arg));
-	$event = new ATN_Model_DataEventOrganiser;
+	$event = new ATN_Model_DataEnviraGallery;
 	$arg_event = array(
 		'event_start_before' => '+7 days',
-		'event_category' => array(6)
+		'event-category' => array('test4')
 	);
-	_dump($event->query($arg_event));
+	_dump($event->query());
+	//$event->query();
 	exit();
 }
-add_action('after_setup_theme','test');
+add_action('init','test');
 function allteams_news_letter_init_updater(){
 	$updater = new ATN_Updater( __FILE__ ); // instantiate our class
 	$updater->set_username( 'apysais' ); // set username

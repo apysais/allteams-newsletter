@@ -73,38 +73,24 @@ class ATN_Model_DataEventOrganiser{
 		bookee_id - (int) ID of user to retrieve events for which the user is attending
 	**/
 	public function query($query_data = array()){
-		
-		//if( !is_admin() ){
-			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-		//}
-		
 		if ( is_plugin_active( 'event-organiser/event-organiser.php' ) ) {
-			$numberposts = -1;
-			if( isset($query_data['numberposts']) 
-				&& trim($query_data['numberposts']) != ''
-			){
-				$numberposts = $query_data['numberposts'];
+			$query = wp_parse_args($query_data, array(
+				'posts_per_page'   => -1,
+				'post_type'        => 'event',
+				'suppress_filters' => false,
+				'orderby'          => 'eventstart',
+				'order'            => 'ASC',
+				'showrepeats'      => 1,
+				'group_events_by'  => '',
+				'showpastevents'   => true,
+				'no_found_rows'    => true,
+				'event_start_before'    => 'now',
+				'event_end_after'    => 'now',
+			));
+			if ( ! empty( $query['numberposts'] ) ) {
+				$query['posts_per_page'] = (int) $query['numberposts'];
 			}
-			$event_end_after = 'now';
-			if( isset($query_data['event_end_after']) 
-				&& trim($query_data['event_end_after']) != ''
-			){
-				$event_end_after = $query_data['event_end_after'];
-			}
-			$event_start_before = 'now';
-			if( isset($query_data['event_start_before']) 
-				&& trim($query_data['event_start_before']) != ''
-			){
-				$event_start_before = $query_data['event_start_before'];
-			}
-			$args = array(
-				'numberposts' => $numberposts,
-				'event_end_after' => $event_end_after,
-				'event_start_before' => $event_start_before,
-			);
-			_dump($args);
-			$eo = eo_get_events($args);
-			//$eo = new WP_Query($args);
+			$eo = new WP_Query($query);
 			wp_reset_postdata();
 			return $eo;
 		}
