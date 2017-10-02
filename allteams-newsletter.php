@@ -95,21 +95,18 @@ add_action('plugins_loaded', 'run_allteams_newsletter');
 function test(){
 	//$ds = new ATN_Model_DataWP;
 	$arg = array(
-		'posts_per_page' => -1,
 		'date_query' => '-8 days',
-		'category' => '3'
 	);
 	//_dump($ds->query($arg));
 	$event = new ATN_Model_DataEnviraGallery;
-	$arg_event = array(
-		'event_start_before' => '+7 days',
-		'event-category' => array('test4')
+	$arg_gal = array(
+		'date_query' => '',
 	);
-	_dump($event->query());
+	_dump($event->query($arg_gal));
 	//$event->query();
 	exit();
 }
-add_action('init','test');
+//add_action('init','test');
 function allteams_news_letter_init_updater(){
 	$updater = new ATN_Updater( __FILE__ ); // instantiate our class
 	$updater->set_username( 'apysais' ); // set username

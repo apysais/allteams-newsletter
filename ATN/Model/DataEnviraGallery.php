@@ -79,26 +79,43 @@ class ATN_Model_DataEnviraGallery{
 		$envira_ret = array();
 		if ( is_plugin_active( 'envira-gallery/envira-gallery.php' ) ) {
 			// Build WP_Query arguments.
-			$query = wp_parse_args($query_data, array(
+			$date_query = array(
+				'year' => date( 'Y' ),
+				'week' => date( 'W' ),
+			);
+			if( isset($query_data['date_query']) 
+				&& !empty($query_data['date_query'])
+			){
+				$query_after_before = checkPositive($query_data['date_query']);
+
+				$date_query = array(
+					$query_after_before => $query_data['date_query'],
+					'inclusive' => true,
+				);
+			}
+			_dump($date_query);
+			$query = array(
 				'post_type'     => 'envira',
 				'post_status'   => 'publish',
 				'posts_per_page'=> 99,
 				'no_found_rows' => true,
+				'date_query' => $date_query,
 				'meta_query'    => array(
 					array(
 						'key'   => '_eg_gallery_data',
 						'compare' => 'EXISTS',
 					),
 				),
-			));
+			);
+			_dump($query);
 			$envira = new WP_Query($query);
+			_dump($envira);
 			if ( $envira->have_posts() ) {
 				foreach ( $envira->posts as $key => $val ) {
 					$envira_ret[$val->ID] = array(
 						'data' => $envira->posts[0],
 						'images' => $this->_get_images($val->ID)
 					);
-					//echo $val->post_title.'-'.$val->ID.'<br>';
 				}
 				//_dump($envira_ret);
 			}
