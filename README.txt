@@ -4,7 +4,7 @@ Donate link: allteams.nz
 Tags: comments, spam
 Requires at least: 3.7
 Tested up to: 4.8.2
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,9 @@ e.g.
 == Screenshots ==
 
 == Changelog ==
+
+= 1.1.0 =
+* Add template
 
 = 1.0.0 =
 * First version
