@@ -71,7 +71,7 @@ class ATN_View{
 	 * @return path / string
 	 * */
 	public function get_view_folder(){
-		return dbtb_get_plugin_dir();
+		return atn_get_plugin_dir();
 	}
 
 	/**

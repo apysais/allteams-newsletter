@@ -30,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'PLUGIN_NAME_VERSION', '1.0.0' );
+define( 'PLUGIN_NAME_VERSION', '1.1.0' );
 /**
  * For autoloading classes
  * */
@@ -90,8 +90,25 @@ function run_allteams_newsletter() {
 	$plugin->run();
 	allteams_news_letter_init_updater();
 	
+	new ATN_Admin_Newsletter;
 }
 add_action('plugins_loaded', 'run_allteams_newsletter');
+function atn_get_plugin_details(){
+	// Check if get_plugins() function exists. This is required on the front end of the
+	// site, since it is in a file that is normally only loaded in the admin.
+	if ( ! function_exists( 'get_plugins' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+	}
+	$ret = get_plugins();
+	return $ret['allteams-newsletter/allteams-newsletter.php'];
+}
+function atn_get_text_domain(){
+	$ret = atn_get_plugin_details();
+	return $ret['TextDomain'];
+}
+function atn_get_plugin_dir(){
+	return plugin_dir_path( __FILE__ );
+}
 function test(){
 	//$ds = new ATN_Model_DataWP;
 	$arg = array(
