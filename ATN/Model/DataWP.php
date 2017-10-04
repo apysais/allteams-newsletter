@@ -86,10 +86,8 @@ class ATN_Model_DataWP{
 			$posts_per_page = $query_data['posts_per_page'];
 		}
 		//category
-		//array( 'cat' => '2,6,17,38' )
 		$category = '';
 		if( isset($query_data['category']) 
-			&& trim($query_data['category'])!= ''
 		){
 			$category = $query_data['category'];
 		}
@@ -98,9 +96,11 @@ class ATN_Model_DataWP{
 			'post_type'=> $post_type,
 			'date_query' => $date_query,
 			'posts_per_page' => $posts_per_page,
-			'cat' => array('cat' => $category)
+			'cat' => $category
 		);
-		//_dump($args);
+		/*$query = wp_parse_args($query_data, array(
+			'posts_per_page'   => -1,
+		));*/
 		$query = new WP_Query( $args );
 		if ( $query->have_posts() ) {
 			wp_reset_postdata();

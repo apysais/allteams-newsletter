@@ -1,4 +1,4 @@
-<div id="atn-wrapper" class="about-wrap wrap">
+<div id="atn-wrapper" class="newsletter-wrap wrap">
 	<h1><?php echo $heading;?></h1>
 	<div>
 		<h2 class="nav-tab-wrapper wp-clearfix">
@@ -9,7 +9,13 @@
 		</h2>
 	</div>
 	<div class="feature-section one-col">
-		<p class="lead-description">AllTeams Newsletter</p>
+		<p class="lead-description">Some description here</p>
 	</div>
-
+	<form name="filter-posts-form" method="post" action="<?php echo $action;?>">
+		<input type="hidden" name="_method" value="<?php echo $method;?>">
+		<?php ATN_View::get_instance()->admin_partials('partials/filter_posts.php', $posts); ?>
+		<?php ATN_View::get_instance()->admin_partials('partials/filter_events.php', $events); ?>
+		<?php ATN_View::get_instance()->admin_partials('partials/filter_galleries.php', array()); ?>
+		<p class="submit"><input type="submit" name="query" id="query" class="button button-primary" value="Query"></p>
+	</form>
 </div>

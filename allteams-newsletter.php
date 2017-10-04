@@ -110,16 +110,17 @@ function atn_get_plugin_dir(){
 	return plugin_dir_path( __FILE__ );
 }
 function test(){
-	//$ds = new ATN_Model_DataWP;
+	$ds = new ATN_Model_DataWP;
 	$arg = array(
-		'date_query' => '-8 days',
+		'date_query' => '-7 days',
+		'category' => array(4,5)
 	);
-	//_dump($ds->query($arg));
-	$event = new ATN_Model_DataEnviraGallery;
+	_dump($ds->query($arg));
+	/*$event = new ATN_Model_DataEnviraGallery;
 	$arg_gal = array(
 		'date_query' => '',
 	);
-	_dump($event->query($arg_gal));
+	_dump($event->query($arg_gal));*/
 	//$event->query();
 	exit();
 }
