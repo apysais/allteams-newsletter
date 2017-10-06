@@ -34,6 +34,7 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 	public function newsletter_article(){
 		$form_post = $_POST;
 		$data = array();
+		//_dump($form_post,1);
 		$this->atn_main();
 
 		if( isset($form_post['query']) 
@@ -42,7 +43,7 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 			$wp_forms = $form_post['wp'];
 			$ds = new ATN_Model_DataWP;
 			if( isset($wp_forms['last_date_query']) ){
-				$wp_forms['date_query'] = '-'.$wp_forms['last_date_query'].' days';
+				$wp_forms['date_query'] = $wp_forms['last_date_query'].' days ago';
 			}
 			if( isset($wp_forms['posts_per_page']) 
 				&& $wp_forms['posts_per_page'] == 0
@@ -61,7 +62,9 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 		){
 			//_dump($form_post['events']);
 			$event_forms['numberposts'] = $form_post['events']['posts_per_page'];
-			$event_forms['event-category'] = implode(',',$form_post['events']['category']);
+			if( isset($form_post['events']['category']) ){
+				$event_forms['event-category'] = implode(',',$form_post['events']['category']);
+			}
 			if( isset($form_post['events']['date_query']) ){
 				$event_forms['event_start_before'] = '+'.$form_post['events']['date_query'].' days';
 			}
@@ -69,6 +72,18 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 			$event_get_query = $event_query->query($event_forms);
 			$data['event_count'] = $event_get_query->post_count;
 			$data['events'] = $event_get_query->posts;
+		}
+		if( isset($form_post['gallery'])
+		){
+			//_dump($form_post['events']);
+			$gallery['posts_per_page'] = $form_post['gallery']['posts_per_page'];
+ 			if( isset($form_post['gallery']['last_date_query']) ){
+				$gallery['date_query'] = $form_post['gallery']['last_date_query'].' days ago';
+			}
+			$gallery_obj = new ATN_Model_DataEnviraGallery;
+			$gallery_get_query = $gallery_obj->query($gallery);
+			//$data['event_count'] = $gallery_get_query->post_count;
+			$data['galleries'] = $gallery_get_query;
 		}
 		ATN_View::get_instance()->admin_partials('partials/email-templates/template.php', $data);
 	}

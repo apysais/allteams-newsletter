@@ -92,10 +92,12 @@ class ATN_Model_DataEventOrganiser{
 			}
 			//_dump($query);
 			$eo = new WP_Query($query);
-			wp_reset_postdata();
-			return $eo;
+			if ( $eo->have_posts() ) {
+				wp_reset_postdata();
+				return $eo;
+			}
+			return false;
 		}
-		
 		return false;
 	}
 	

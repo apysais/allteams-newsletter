@@ -93,31 +93,29 @@ class ATN_Model_DataEnviraGallery{
 					'inclusive' => true,
 				);
 			}
-			_dump($date_query);
-			$query = array(
+			$query = wp_parse_args($query_data, array(
 				'post_type'     => 'envira',
 				'post_status'   => 'publish',
 				'posts_per_page'=> 99,
 				'no_found_rows' => true,
-				'date_query' => $date_query,
 				'meta_query'    => array(
 					array(
 						'key'   => '_eg_gallery_data',
 						'compare' => 'EXISTS',
 					),
 				),
-			);
-			_dump($query);
+			));
+			$query['date_query'] = $date_query;
+			//_dump($query);
 			$envira = new WP_Query($query);
-			_dump($envira);
+			//_dump($envira);
 			if ( $envira->have_posts() ) {
 				foreach ( $envira->posts as $key => $val ) {
-					$envira_ret[$val->ID] = array(
+					$envira_ret[] = array(
 						'data' => $envira->posts[0],
 						'images' => $this->_get_images($val->ID)
 					);
 				}
-				//_dump($envira_ret);
 			}
 			wp_reset_postdata();
 			return $envira_ret;

@@ -6,7 +6,7 @@
 				<th scope="row"><label for="">Maximum Number of events to show : </label></th>
 				<td>
 					<p>By leaving this field 0, no limit will be set</p>
-					<input name="events[posts_per_page]" style="width:80%;" class="wp_posts_per_page" value="5">
+					<input name="events[posts_per_page]" style="width:80%;" class="events_posts_per_page" value="5">
 				</td>
 			</tr>
 			<tr>

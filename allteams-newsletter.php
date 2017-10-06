@@ -109,19 +109,28 @@ function atn_get_text_domain(){
 function atn_get_plugin_dir(){
 	return plugin_dir_path( __FILE__ );
 }
+function atn_get_envira_gallery($arg){
+}
 function test(){
-	$ds = new ATN_Model_DataWP;
+	/*$ds = new ATN_Model_DataWP;
 	$arg = array(
-		'date_query' => '-7 days',
+		'date_query' => '7 days ago',
 		'category' => array(4,5)
 	);
+	_dump($arg);
 	_dump($ds->query($arg));
-	/*$event = new ATN_Model_DataEnviraGallery;
+	$gal = new ATN_Model_DataEnviraGallery;
 	$arg_gal = array(
-		'date_query' => '',
+		'date_query' => '7 days ago',
 	);
-	_dump($event->query($arg_gal));*/
+	_dump($gal->query($arg_gal));
 	//$event->query();
+	*/
+	$arg = array(
+		'date_query' => '7 days ago'
+	);
+	$events = new ATN_Model_EventOrganiser;
+	$events->query($arg);
 	exit();
 }
 //add_action('init','test');
