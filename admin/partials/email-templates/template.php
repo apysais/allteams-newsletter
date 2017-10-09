@@ -1,3 +1,7 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
+<head>
 <style>
 	/* Shrink Wrap Layout Pattern CSS */
 	@media only screen and (max-width: 599px) {
@@ -51,9 +55,11 @@
         }
     }
 </style>
+</head>
+<body>
 <h1>Latest Article</h1>
 <table cellpadding="0" cellspacing="0">
-    <?php if( $posts ){ ?>
+    <?php if( $posts && isset($posts)){ ?>
 		<?php foreach($posts as $key => $val){ ?>
 			<tr>
 				<td class="pattern" width="600">
@@ -217,3 +223,5 @@
 		<?php }//foeach posts ?>
 	<?php }//if posts ?>
 </table>
+</body>
+</html>

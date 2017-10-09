@@ -36,7 +36,8 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 		$data = array();
 		//_dump($form_post,1);
 		$this->atn_main();
-
+		
+		$data['posts'] = false;
 		if( isset($form_post['query']) 
 			&& isset($form_post['wp'])
 		){
@@ -55,9 +56,9 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 			if( $query ){
 				$data['post_count'] = $query->post_count;
 				$data['posts'] = $query->posts;
-				
 			}
 		}
+		$data['events'] = false;
 		if( isset($form_post['events'])
 		){
 			//_dump($form_post['events']);
@@ -73,6 +74,7 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 			$data['event_count'] = $event_get_query->post_count;
 			$data['events'] = $event_get_query->posts;
 		}
+		$data['galleries'] = false;
 		if( isset($form_post['gallery'])
 		){
 			//_dump($form_post['events']);
@@ -84,6 +86,11 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 			$gallery_get_query = $gallery_obj->query($gallery);
 			//$data['event_count'] = $gallery_get_query->post_count;
 			$data['galleries'] = $gallery_get_query;
+		}
+		if( isset($form_post['send-mail']) ){
+			$data['to'] = 'to@mail.com';
+			$data['subject'] = 'Test';
+			ATN_Model_SendMail::get_instance()->send($data);
 		}
 		ATN_View::get_instance()->admin_partials('partials/email-templates/template.php', $data);
 	}
@@ -104,7 +111,7 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 		$data['events']['categories'] = $taxonomies;		
 		ATN_View::get_instance()->admin_partials('partials/main.php', $data);
 	}
-
+	
 	/**
 	 * Controller
 	 *

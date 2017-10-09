@@ -109,8 +109,7 @@ function atn_get_text_domain(){
 function atn_get_plugin_dir(){
 	return plugin_dir_path( __FILE__ );
 }
-function atn_get_envira_gallery($arg){
-}
+
 function test(){
 	/*$ds = new ATN_Model_DataWP;
 	$arg = array(
@@ -140,3 +139,13 @@ function allteams_news_letter_init_updater(){
 	$updater->set_repository( 'allteams-newsletter' ); // set repo
 	$updater->initialize(); // initialize the updater
 }
+function mailtrap($phpmailer) {
+  $phpmailer->isSMTP();
+  $phpmailer->Host = 'smtp.mailtrap.io';
+  $phpmailer->SMTPAuth = true;
+  $phpmailer->Port = 2525;
+  $phpmailer->Username = '1a88083410020f';
+  $phpmailer->Password = '0ee1541864371b';
+}
+
+add_action('phpmailer_init', 'mailtrap');

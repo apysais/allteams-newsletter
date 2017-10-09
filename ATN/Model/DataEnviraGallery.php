@@ -112,7 +112,7 @@ class ATN_Model_DataEnviraGallery{
 			if ( $envira->have_posts() ) {
 				foreach ( $envira->posts as $key => $val ) {
 					$envira_ret[] = array(
-						'data' => $envira->posts[0],
+						'data' => $val,
 						'images' => $this->_get_images($val->ID)
 					);
 				}
