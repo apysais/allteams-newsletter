@@ -147,5 +147,16 @@ function mailtrap($phpmailer) {
   $phpmailer->Username = '1a88083410020f';
   $phpmailer->Password = '0ee1541864371b';
 }
-
-add_action('phpmailer_init', 'mailtrap');
+function allteams_mail($phpmailer) {
+  $phpmailer->isSMTP();
+  $phpmailer->Host = 'mail.allteams.nz';
+  $phpmailer->SMTPAuth = true;
+  $phpmailer->Port = 465;
+  $phpmailer->SMTPSecure = true;
+  $phpmailer->Username = 'info@allteams.nz';
+  $phpmailer->Password = 'Ga$i@Bk#TS%K';
+  $phpmailer->From = 'info@allteams.nz';
+  $phpmailer->FromName='Info';
+}
+//add_action('phpmailer_init', 'mailtrap');
+add_action('phpmailer_init', 'allteams_mail');

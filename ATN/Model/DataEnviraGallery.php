@@ -62,10 +62,10 @@ class ATN_Model_DataEnviraGallery{
 		if ( $skip_empty && !empty( $data['gallery'] ) ) {
 			//_dump($data);
 			// Skip default/dynamic gallery types.
-			$type = Envira_Gallery_Shortcode::get_instance()->get_config( 'type', $data );
-			if ( 'defaults' === Envira_Gallery_Shortcode::get_instance()->get_config( 'type', $data ) || 'dynamic' === Envira_Gallery_Shortcode::get_instance()->get_config( 'type', $data ) ) {
-				continue;
-			}
+			//$type = Envira_Gallery_Shortcode::get_instance()->get_config( 'type', $data );
+			//if ( 'defaults' === Envira_Gallery_Shortcode::get_instance()->get_config( 'type', $data ) || 'dynamic' === Envira_Gallery_Shortcode::get_instance()->get_config( 'type', $data ) ) {
+			//	continue;
+			//}
 
 			// Add gallery to array of galleries.
 			$ret = $data;

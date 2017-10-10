@@ -58,7 +58,7 @@
 <body>
 <h1>Latest Article</h1>
 <table cellpadding="0" cellspacing="0">
-    <?php if( $posts && isset($posts)){ ?>
+    <?php if( $posts ){ ?>
 		<?php foreach($posts as $key => $val){ ?>
 			<tr>
 				<td class="pattern" width="600">

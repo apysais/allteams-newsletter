@@ -33,14 +33,13 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 	
 	public function newsletter_article(){
 		$form_post = $_POST;
+		
 		$data = array();
 		//_dump($form_post,1);
 		$this->atn_main();
 		
 		$data['posts'] = false;
-		if( isset($form_post['query']) 
-			&& isset($form_post['wp'])
-		){
+		if(  isset($form_post['wp']) ){
 			$wp_forms = $form_post['wp'];
 			$ds = new ATN_Model_DataWP;
 			if( isset($wp_forms['last_date_query']) ){
@@ -51,6 +50,7 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 			){
 				$wp_forms['posts_per_page'] = -1;
 			}
+			
 			$query = $ds->query($wp_forms);
 			
 			if( $query ){
@@ -71,8 +71,10 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 			}
 			$event_query = new ATN_Model_DataEventOrganiser;
 			$event_get_query = $event_query->query($event_forms);
-			$data['event_count'] = $event_get_query->post_count;
-			$data['events'] = $event_get_query->posts;
+			if( $event_get_query ){
+				$data['event_count'] = $event_get_query->post_count;
+				$data['events'] = $event_get_query->posts;
+			}
 		}
 		$data['galleries'] = false;
 		if( isset($form_post['gallery'])
@@ -84,14 +86,17 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 			}
 			$gallery_obj = new ATN_Model_DataEnviraGallery;
 			$gallery_get_query = $gallery_obj->query($gallery);
+			if( $gallery_get_query ){
 			//$data['event_count'] = $gallery_get_query->post_count;
 			$data['galleries'] = $gallery_get_query;
+			}
 		}
 		if( isset($form_post['send-mail']) ){
-			$data['to'] = 'to@mail.com';
+			$data['to'] = 'allan.paul.casilum@gmail.com';
 			$data['subject'] = 'Test';
 			ATN_Model_SendMail::get_instance()->send($data);
 		}
+
 		ATN_View::get_instance()->admin_partials('partials/email-templates/template.php', $data);
 	}
 	
