@@ -31,6 +31,8 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'PLUGIN_NAME_VERSION', '1.1.0' );
+define('TO_MAIL', 'allan.paul.casilum@gmail.com');
+define('SUBJECT_MAIL', 'Test Mail');
 /**
  * For autoloading classes
  * */

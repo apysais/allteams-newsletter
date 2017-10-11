@@ -92,8 +92,8 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 			}
 		}
 		if( isset($form_post['send-mail']) ){
-			$data['to'] = 'allan.paul.casilum@gmail.com';
-			$data['subject'] = 'Test';
+			$data['to'] = TO_MAIL;
+			$data['subject'] = SUBJECT_MAIL;
 			ATN_Model_SendMail::get_instance()->send($data);
 		}
 
