@@ -66,7 +66,7 @@
 						<tr>
 							<td class="hero">
 								<?php if ( has_post_thumbnail( $val->ID ) ) { ?>
-									<?php $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $val->ID ), 'large' ); ?>
+									<?php $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $val->ID ), 'medium' ); ?>
 									<?php if ( ! empty( $large_image_url[0] ) ) { ?>
 										<img src="<?php echo esc_url( $large_image_url[0] );?>" alt="" style="display: block; border: 0;" />
 									<?php } ?>
@@ -124,7 +124,7 @@
 						<tr>
 							<td class="hero">
 								<?php if ( has_post_thumbnail( $val->ID ) ) { ?>
-									<?php $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $val->ID ), 'large' ); ?>
+									<?php $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $val->ID ), 'medium' ); ?>
 									<?php if ( ! empty( $large_image_url[0] ) ) { ?>
 										<img src="<?php echo esc_url( $large_image_url[0] );?>" alt="" style="display: block; border: 0;" />
 									<?php } ?>
@@ -188,7 +188,7 @@
 																		<td class="col" width="140" style="padding: 0 5px;">
 																			<table cellpadding="0" cellspacing="0">
 																				<tr>
-																					<td align="left"><img src="<?php echo $v['thumb'];?>" width="140" alt="images" style="display: block; border: 0;" /></td>
+																					<td align="left"><img src="<?php echo $v['src'];?>" width="140" alt="images" style="display: block; border: 0;" /></td>
 																				</tr>
 																				<tr>
 																					<td align="left" style="font-family: arial,sans-serif; font-size: 14px; color: #333; padding-top: 10px;">

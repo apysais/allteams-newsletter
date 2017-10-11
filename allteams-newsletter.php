@@ -31,6 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'PLUGIN_NAME_VERSION', '1.1.0' );
+//define('TO_MAIL', 'mike@allteams.com');
 define('TO_MAIL', 'allan.paul.casilum@gmail.com');
 define('SUBJECT_MAIL', 'Test Mail');
 /**
@@ -142,12 +143,14 @@ function allteams_news_letter_init_updater(){
 	$updater->initialize(); // initialize the updater
 }
 function mailtrap($phpmailer) {
-  $phpmailer->isSMTP();
-  $phpmailer->Host = 'smtp.mailtrap.io';
-  $phpmailer->SMTPAuth = true;
-  $phpmailer->Port = 2525;
-  $phpmailer->Username = '1a88083410020f';
-  $phpmailer->Password = '0ee1541864371b';
+	$phpmailer->isSMTP();
+	$phpmailer->Host = 'smtp.mailtrap.io';
+	$phpmailer->SMTPAuth = true;
+	$phpmailer->Port = 2525;
+	$phpmailer->Username = '1a88083410020f';
+	$phpmailer->Password = '0ee1541864371b';
+	$phpmailer->setFrom('info@allteams.nz', 'Info');
+	$phpmailer->addReplyTo('info@example.com', 'Information');
 }
 function allteams_mail($phpmailer) {
 	$phpmailer->isSMTP();
