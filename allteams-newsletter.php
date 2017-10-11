@@ -164,7 +164,7 @@ function allteams_mail($phpmailer) {
 	//$phpmailer->FromName='Info';
 	//Recipients
 	$phpmailer->setFrom('info@allteams.nz', 'Info');
-	$phpmailer->addReplyTo('info@example.com', 'Information');
+	$phpmailer->addReplyTo('info@allteams.nz', 'Information');
 }
 //add_action('phpmailer_init', 'mailtrap');
 add_action('phpmailer_init', 'allteams_mail');
