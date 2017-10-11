@@ -103,7 +103,7 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 	public function atn_main(){
 		global $wpdb;
 		$data = array();
-		
+		//print_r($_POST);
 		$menu_slug = $this->menu_slug;
 		$data['heading'] = 'AllTeams Newsletter';
 		$data['method'] = 'newsletter_article';
@@ -112,8 +112,27 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 			'orderby' => 'name',
 			'order'   => 'ASC'
 		) );
+		$data['posts']['input']['category'] = array();
+		if( isset($_POST) 
+			&& isset($_POST['wp'])
+		){
+			$data['posts']['input'] = $_POST['wp'];
+		}
+		$data['events']['input']['category'] = array();
+		if( isset($_POST) 
+			&& isset($_POST['events'])
+		){
+			$data['events']['input'] = $_POST['events'];
+		}
 		$taxonomies = get_terms('event-category');
-		$data['events']['categories'] = $taxonomies;		
+		$data['events']['categories'] = $taxonomies;
+		
+		$data['gallery'] = array();
+		if( isset($_POST) 
+			&& isset($_POST['gallery'])
+		){
+			$data['gallery']['input'] = $_POST['gallery'];
+		}		
 		ATN_View::get_instance()->admin_partials('partials/main.php', $data);
 	}
 	
