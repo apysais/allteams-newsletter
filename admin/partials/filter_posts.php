@@ -1,5 +1,7 @@
 <div class="filter-posts wrap">
 	<h2>Latest Article</h2>
+	<h4>Default Shortcode for mailpoet</h4>
+	<code>[custom:allteams_newsletter_post posts_per_page:5 show_article_from_last:7 category:'']</code>
 	<table class="form-table">
 		<tbody>
 			<tr>
@@ -31,4 +33,5 @@
 			</tr>
 		</tbody>
 	</table>
+	
 </div>

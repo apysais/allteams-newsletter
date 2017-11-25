@@ -41,7 +41,7 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 		$data['posts'] = false;
 		if(  isset($form_post['wp']) ){
 			$wp_forms = $form_post['wp'];
-			$ds = new ATN_Model_DataWP;
+
 			if( isset($wp_forms['last_date_query']) ){
 				$wp_forms['date_query'] = $wp_forms['last_date_query'].' days ago';
 			}
@@ -50,27 +50,28 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 			){
 				$wp_forms['posts_per_page'] = -1;
 			}
-			
-			$query = $ds->query($wp_forms);
+
+			$query = atn_get_posts($wp_forms['posts_per_page'], $wp_forms['last_date_query'],$wp_forms['category']);
 			
 			if( $query ){
 				$data['post_count'] = $query->post_count;
 				$data['posts'] = $query->posts;
 			}
 		}
+		
 		$data['events'] = false;
 		if( isset($form_post['events'])
 		){
 			//_dump($form_post['events']);
 			$event_forms['numberposts'] = $form_post['events']['posts_per_page'];
 			if( isset($form_post['events']['category']) ){
-				$event_forms['event-category'] = implode(',',$form_post['events']['category']);
+				$event_forms['event-category'] = $form_post['events']['category'];
 			}
 			if( isset($form_post['events']['date_query']) ){
 				$event_forms['event_start_before'] = '+'.$form_post['events']['date_query'].' days';
 			}
-			$event_query = new ATN_Model_DataEventOrganiser;
-			$event_get_query = $event_query->query($event_forms);
+			
+			$event_get_query = atn_get_events($event_forms['numberposts'],$event_forms['event_start_before'], $event_forms['event-category']);
 			if( $event_get_query ){
 				$data['event_count'] = $event_get_query->post_count;
 				$data['events'] = $event_get_query->posts;
@@ -84,8 +85,8 @@ class ATN_Controllers_Newsletter extends ATN_Base{
  			if( isset($form_post['gallery']['last_date_query']) ){
 				$gallery['date_query'] = $form_post['gallery']['last_date_query'].' days ago';
 			}
-			$gallery_obj = new ATN_Model_DataEnviraGallery;
-			$gallery_get_query = $gallery_obj->query($gallery);
+
+			$gallery_get_query = atn_get_galleries($gallery['posts_per_page'], $gallery['date_query']);
 			if( $gallery_get_query ){
 			//$data['event_count'] = $gallery_get_query->post_count;
 			$data['galleries'] = $gallery_get_query;
@@ -96,7 +97,15 @@ class ATN_Controllers_Newsletter extends ATN_Base{
 			$data['subject'] = SUBJECT_MAIL;
 			ATN_Model_SendMail::get_instance()->send($data);
 		}
-
+		$data['post_input'] = $form_post;
+		$post_input = $form_post;
+		$data['wp_post_per_page'] = isset($post_input['wp']['posts_per_page']) ? $post_input['wp']['posts_per_page']:'';
+		$data['wp_last_date_query'] = isset($post_input['wp']['last_date_query']) ? $post_input['wp']['last_date_query']:'';
+		$data['wp_category'] = isset($post_input['wp']['category']) ? implode(',',$post_input['wp']['category']):'';
+		$data['events_post_per_page'] = isset($post_input['events']['posts_per_page']) ? $post_input['events']['posts_per_page']:'';
+		$data['events_show_upcoming_days'] = isset($post_input['events']['date_query']) ? $post_input['events']['date_query']:'';
+		$data['events_category'] = isset($post_input['events']['category']) ? implode(',',$post_input['events']['category']):'';
+		//print_r($form_post);
 		ATN_View::get_instance()->admin_partials('partials/email-templates/template.php', $data);
 	}
 	

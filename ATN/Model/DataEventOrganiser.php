@@ -90,7 +90,7 @@ class ATN_Model_DataEventOrganiser{
 			if ( ! empty( $query['numberposts'] ) ) {
 				$query['posts_per_page'] = (int) $query['numberposts'];
 			}
-			//_dump($query);
+			//print_r($query);
 			$eo = new WP_Query($query);
 			if ( $eo->have_posts() ) {
 				wp_reset_postdata();

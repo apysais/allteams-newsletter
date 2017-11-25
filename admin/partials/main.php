@@ -17,6 +17,5 @@
 		<?php ATN_View::get_instance()->admin_partials('partials/filter_events.php', $events); ?>
 		<?php ATN_View::get_instance()->admin_partials('partials/filter_galleries.php', $gallery); ?>
 		<p class="submit"><input type="submit" name="query" id="query" class="button button-primary" value="Preview"></p>
-		<p class="submit"><input type="submit" name="send-mail" id="send-mail" class="button button-primary" value="Send Mail"></p>
 	</form>
 </div>

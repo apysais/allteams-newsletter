@@ -57,6 +57,8 @@
 </head>
 <body>
 <h1>Latest Article</h1>
+<h4>Shortcode for mailpoet</h4>
+<code>[custom:allteams_newsletter_post posts_per_page:<?php echo $wp_post_per_page;?> show_article_from_last:<?php echo $wp_last_date_query;?> category:<?php echo $wp_category;?>]</code>
 <table cellpadding="0" cellspacing="0">
     <?php if( $posts ){ ?>
 		<?php foreach($posts as $key => $val){ ?>
@@ -101,6 +103,8 @@
 <hr>
 
 <h1>Upcoming Events</h1>
+<h4>Shortcode for mailpoet</h4>
+<code>[custom:allteams_newsletter_events posts_per_page:<?php echo $events_post_per_page;?> show_upcoming_days:<?php echo $events_show_upcoming_days;?> category:<?php echo $events_category;?>]</code>
 <table cellpadding="0" cellspacing="0">
     <?php if( $events ){ ?>
 		<?php foreach($events as $key => $val){ ?>

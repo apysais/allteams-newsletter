@@ -1,5 +1,7 @@
 <div class="filter-events wrap">
 	<h2>Upcoming Events</h2>
+	<h4>Default Shortcode for mailpoet</h4>
+	<code>[custom:allteams_newsletter_events post_per_page:5 show_upcoming_days:7 category:'']</code>
 	<table class="form-table">
 		<tbody>
 			<tr>

@@ -94,6 +94,8 @@ function run_allteams_newsletter() {
 	allteams_news_letter_init_updater();
 	
 	new ATN_Admin_Newsletter;
+	//mailpoet shortcode
+	ATN_Model_MailPoet::get_instance();
 }
 add_action('plugins_loaded', 'run_allteams_newsletter');
 function atn_get_plugin_details(){
@@ -113,58 +115,22 @@ function atn_get_plugin_dir(){
 	return plugin_dir_path( __FILE__ );
 }
 
-function test(){
-	/*$ds = new ATN_Model_DataWP;
-	$arg = array(
-		'date_query' => '7 days ago',
-		'category' => array(4,5)
-	);
-	_dump($arg);
-	_dump($ds->query($arg));
-	$gal = new ATN_Model_DataEnviraGallery;
-	$arg_gal = array(
-		'date_query' => '7 days ago',
-	);
-	_dump($gal->query($arg_gal));
-	//$event->query();
-	*/
-	$arg = array(
-		'date_query' => '7 days ago'
-	);
-	$events = new ATN_Model_EventOrganiser;
-	$events->query($arg);
-	exit();
-}
-//add_action('init','test');
 function allteams_news_letter_init_updater(){
 	$updater = new ATN_Updater( __FILE__ ); // instantiate our class
 	$updater->set_username( 'apysais' ); // set username
 	$updater->set_repository( 'allteams-newsletter' ); // set repo
 	$updater->initialize(); // initialize the updater
 }
-function mailtrap($phpmailer) {
-	$phpmailer->isSMTP();
-	$phpmailer->Host = 'smtp.mailtrap.io';
-	$phpmailer->SMTPAuth = true;
-	$phpmailer->Port = 2525;
-	$phpmailer->Username = '1a88083410020f';
-	$phpmailer->Password = '0ee1541864371b';
-	$phpmailer->setFrom('info@allteams.nz', 'Info');
-	$phpmailer->addReplyTo('info@example.com', 'Information');
+
+function test(){
+	$sh = "[custom:allteams_newsletter_events posts_per_page:5 show_upcoming_days:7 category:test,xxx]";
+	
+	if (strpos($sh, 'custom:allteams_newsletter_post') !== false) {
+		echo '1';
+	}else{
+		echo 'x';
+	}
+	atn_mailpoet_shortcode_parse_events($sh);
+	exit();
 }
-function allteams_mail($phpmailer) {
-	$phpmailer->isSMTP();
-	$phpmailer->Host = 'mail.allteams.nz';
-	$phpmailer->SMTPAuth = true;
-	$phpmailer->Port = 465;
-	$phpmailer->SMTPSecure = true;
-	$phpmailer->Username = 'info@allteams.nz';
-	$phpmailer->Password = 'Ga$i@Bk#TS%K';
-	//$phpmailer->From = 'info@allteams.nz';
-	//$phpmailer->FromName='Info';
-	//Recipients
-	$phpmailer->setFrom('info@allteams.nz', 'Info');
-	$phpmailer->addReplyTo('info@allteams.nz', 'Information');
-}
-//add_action('phpmailer_init', 'mailtrap');
-add_action('phpmailer_init', 'allteams_mail');
+//add_action('init','test');
