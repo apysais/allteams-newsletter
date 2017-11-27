@@ -55,16 +55,19 @@ class ATN_Model_MailPoet{
 	}
 	
 	public function mailpoet_allteams_shortcode($shortcode, $newsletter, $subscriber, $queue, $newsletter_body) {
-	  // always return the shortcode if it doesn't match your own!
-	  if (strpos($shortcode, 'custom:allteams_newsletter_post') !== false){
-		  $table = atn_mailpoet_shortcode_parse_posts($shortcode);
-		  return $table;
-	  }elseif(strpos($shortcode, 'custom:allteams_newsletter_events') !== false){
-		  $table = atn_mailpoet_shortcode_parse_events($shortcode);
-		  return $table;
-	  }else{
-		   return $shortcode; 
-	  }
+		// always return the shortcode if it doesn't match your own!
+		if (strpos($shortcode, 'custom:allteams_newsletter_post') !== false){
+			$table = atn_mailpoet_shortcode_parse_posts($shortcode);
+			return $table;
+		}elseif(strpos($shortcode, 'custom:allteams_newsletter_events') !== false){
+			$table = atn_mailpoet_shortcode_parse_events($shortcode);
+			return $table;
+		}elseif(strpos($shortcode, 'custom:allteams_newsletter_gallery') !== false){
+			$table = atn_mailpoet_shortcode_parse_gallery($shortcode);
+			return $table;		
+		}else{
+			return $shortcode; 
+		}
 	}
 	
 	public function __construct(){

@@ -123,14 +123,14 @@ function allteams_news_letter_init_updater(){
 }
 
 function test(){
-	$sh = "[custom:allteams_newsletter_events posts_per_page:5 show_upcoming_days:7 category:test,xxx]";
+	$sh = "[custom:allteams_newsletter_gallery posts_per_page:5 show_img_from_last:7]";
 	
-	if (strpos($sh, 'custom:allteams_newsletter_post') !== false) {
-		echo '1';
+	if (strpos($sh, 'custom:allteams_newsletter_gallery') !== false) {
+		atn_mailpoet_shortcode_parse_gallery($sh);
 	}else{
 		echo 'x';
 	}
-	atn_mailpoet_shortcode_parse_events($sh);
+	//atn_mailpoet_shortcode_parse_events($sh);
 	exit();
 }
 //add_action('init','test');

@@ -105,6 +105,7 @@ class ATN_Model_DataEnviraGallery{
 					),
 				),
 			));
+			
 			$query['date_query'] = $date_query;
 			//_dump($query);
 			$envira = new WP_Query($query);

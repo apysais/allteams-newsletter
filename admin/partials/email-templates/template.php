@@ -166,7 +166,8 @@
 <hr>
 
 <h1>Latest Gallery</h1>
-
+<h4>Shortcode for mailpoet</h4>
+<code>[custom:allteams_newsletter_gallery posts_per_page:<?php echo $gall_post_per_page;?> show_img_from_last:<?php echo $gall_show_upcoming_days;?>]</code>
 <table cellpadding="0" cellspacing="0">
     <?php if( $galleries ){ ?>
 		<?php foreach($galleries as $key => $val){ ?>

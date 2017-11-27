@@ -97,7 +97,7 @@ if( !function_exists('atn_mailpoet_shortcode_parse_events') ){
 		$arg = array();
 		foreach($atts as $k => $v){
 			$to_array = explode(':',$v);
-			//print_r($to_array);
+			print_r($to_array);
 			foreach($to_array as $to_arrayk => $to_arrayv){
 				if( $to_arrayv == 'posts_per_page' ){
 					$arg['numberposts'] = $to_array[1];
@@ -192,6 +192,72 @@ if( !function_exists('atn_get_events') ){
 		return $event_get_query;
 	}
 }
+if( !function_exists('atn_mailpoet_shortcode_parse_gallery') ){
+	//[custom:allteams_newsletter_gallery post_per_page:5 show_img_from_last:7]
+	function atn_mailpoet_shortcode_parse_gallery($mailpoet_shortcode = ''){
+		$atts = shortcode_parse_atts($mailpoet_shortcode);
+		//print_r($atts);
+		$arg = array();
+		foreach($atts as $k => $v){
+			$to_array = explode(':',$v);
+			//print_r($to_array);
+			foreach($to_array as $to_arrayk => $to_arrayv){
+				if( $to_arrayv == 'posts_per_page' ){
+					$arg['posts_per_page'] = $to_array[1];
+				}
+				if( $to_arrayv == 'show_img_from_last' ){
+					$arg['date_query'] = rtrim($to_array[1],']').' days ago';
+				}
+			}
+		}
+		$gallery_posts = atn_get_galleries($arg['posts_per_page'], $arg['date_query']);
+
+		$table = '<table cellpadding="0" cellspacing="0">';
+			if( $gallery_posts ){
+				foreach($gallery_posts as $key => $val){
+					$table .= '<tr>';
+						$table .= '<td>';
+							$table .= '<table cellpadding="0" cellspacing="0">';
+								$table .= '<tr>';
+									$table .= '<td align="left" style="font-family: arial,sans-serif; color: #333;">';
+										$table .= '<h3>'.$val['data']->post_title.'</h3>';
+									$table .= '</td>';
+								$table .= '</tr>';
+								$table .= '<tr>';
+
+									if(isset($val['images']) ){
+										if( isset($val['images']['gallery']) ){
+											foreach($val['images']['gallery'] as $k => $v){
+												$table .= '<tr>';
+													$table .= '<td class="col" style="padding: 0 5px;">';
+														//$table .= '<table cellpadding="0" cellspacing="0">';
+															//$table .= '<tr>';
+																$table .= '<img src="'.$v['src'].'" alt="images" width="300" height="250" style="max-width: 100%;display: block; border: 0;margin-bottom:10px;" />';
+														//$table .= '</table>';
+													$table .= '</td>';
+												$table .= '</tr>';
+											}//foreach
+										}//if( isset($val['images']['gallery']) )
+									}//if(isset($val['images']) )
+									
+								$table .= '</tr>';
+								$table .= '<tr>';
+								$table .= '<td >';
+										$table .= '<a href="'.esc_url( get_permalink($val['data']->ID) ).'">View this Gallery</a>';
+									$table .= '</td>';
+								$table .= '</tr>';
+								$table .= '<tr>';
+									$table .= '<td class="pattern" width="600"><p><hr/></p></td>';
+								$table .= '</tr>';
+							$table .= '</table>';
+						$table .= '</td>';
+					$table .= '</tr>';
+				}//foeach posts
+			}//if posts
+		$table .= '</table>';
+		return $table;
+	}
+}
 if( !function_exists('atn_get_galleries') ){
 	function atn_get_galleries($num_gallery_show = 5, $show_img_from_last_day = 7){
 		$gallery_obj = new ATN_Model_DataEnviraGallery;
@@ -199,14 +265,9 @@ if( !function_exists('atn_get_galleries') ){
 			'date_query' => $show_img_from_last_day,
 			'posts_per_page' => $num_gallery_show
 		);
-
+		
 		$gallery_get_query = $gallery_obj->query($arg);
 		
 		return $gallery_get_query;
-	}
-}
-if( !function_exists('atn_mailpoet_shortcode_parse_galleries') ){
-	//[custom:allteams_newsletter_galleries show_images:5 show_image_from_last:7]
-	function atn_mailpoet_shortcode_parse_galleries($mailpoet_shortcode = ''){
 	}
 }
