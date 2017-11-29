@@ -98,8 +98,9 @@ class ATN_Model_DataWP{
 			'posts_per_page' => $posts_per_page,
 			'cat' => $category
 		);
-		//print_r($args);
+		//_dump($args);
 		$query = new WP_Query( $args );
+		//_dump($query);
 		if ( $query->have_posts() ) {
 			wp_reset_postdata();
 			return $query;

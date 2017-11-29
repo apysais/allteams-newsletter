@@ -11,7 +11,7 @@ if( !function_exists('atn_get_posts') ){
 
 		$ds = new ATN_Model_DataWP;
 		$arg = array(
-			'date_query' => $article_from_last,
+			'date_query' => $article_from_last . ' days ago',
 			'posts_per_page' => $num_article,
 			'category' => $category
 		);
@@ -97,7 +97,7 @@ if( !function_exists('atn_mailpoet_shortcode_parse_events') ){
 		$arg = array();
 		foreach($atts as $k => $v){
 			$to_array = explode(':',$v);
-			print_r($to_array);
+			//print_r($to_array);
 			foreach($to_array as $to_arrayk => $to_arrayv){
 				if( $to_arrayv == 'posts_per_page' ){
 					$arg['numberposts'] = $to_array[1];
