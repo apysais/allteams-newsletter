@@ -55,7 +55,7 @@ if( !function_exists('atn_mailpoet_shortcode_parse_posts') ){
                             $table .= '<table cellpadding="0" cellspacing="0">';
                                 $table .= '<tr>';
                                     $table .= '<td align="left" style="font-family: arial,sans-serif; color: #333;">';
-                                        $table .= '<h3>'.$val->post_title.'</h3>';
+                                        $table .= '<h2>'.$val->post_title.'</h2>';
                                     $table .= '</td>';
                                 $table .= '</tr>';
                                 $table .= '<tr>';
@@ -90,7 +90,7 @@ if( !function_exists('atn_mailpoet_shortcode_parse_posts') ){
                         $table .= '<td class="pattern" width="100%"><p></p></td>';
                     $table .= '</tr>';
                     $table .= '<tr>';
-                        $table .= '<td class="pattern" width="100%"><hr style="border:1px solid gold;"/></td>';
+                        $table .= '<td class="pattern" width="100%"><hr style="border: 1px solid black;margin-bottom: 20px;"/></td>';
                     $table .= '</tr>';
                 }
             $table .= '</table>';
@@ -158,7 +158,7 @@ if( !function_exists('atn_mailpoet_shortcode_parse_events') ){
                                 $table .= '</tr>';
                                 $table .= '<tr>';
                                     $table .= '<td align="left" style="font-family: arial,sans-serif; color: #333;">';
-                                        $table .= '<h3>'.$val->post_title.'</h3>';
+                                        $table .= '<h2>'.$val->post_title.'</h2>';
                                     $table .= '</td>';
                                 $table .= '</tr>';
                                 $table .= '<tr>';
@@ -179,6 +179,9 @@ if( !function_exists('atn_mailpoet_shortcode_parse_events') ){
                     $table .= '</tr>';
                     $table .= '<tr>';
                         $table .= '<td class="pattern" width="600"><p></p></td>';
+                    $table .= '</tr>';
+                    $table .= '<tr>';
+                        $table .= '<td class="pattern" width="100%"><hr style="border: 1px solid black;margin-bottom: 20px;"/></td>';
                     $table .= '</tr>';
                 }//foeach posts
             }//if posts
@@ -228,7 +231,7 @@ if( !function_exists('atn_mailpoet_shortcode_parse_gallery') ){
                             $table .= '<table cellpadding="0" cellspacing="0">';
                                 $table .= '<tr>';
                                     $table .= '<td align="left" style="font-family: arial,sans-serif; color: #333;">';
-                                        $table .= '<h3>'.$val['data']->post_title.'</h3>';
+                                        $table .= '<h2>'.$val['data']->post_title.'</h2>';
                                     $table .= '</td>';
                                 $table .= '</tr>';
                                 $table .= '<tr>';
@@ -255,7 +258,10 @@ if( !function_exists('atn_mailpoet_shortcode_parse_gallery') ){
                                     $table .= '</td>';
                                 $table .= '</tr>';
                                 $table .= '<tr>';
-                                    $table .= '<td class="pattern" width="600"><p><hr/></p></td>';
+                                    $table .= '<td class="pattern" width="600"><p></p></td>';
+                                $table .= '</tr>';
+                                $table .= '<tr>';
+                                    $table .= '<td class="pattern" width="100%"><hr style="border: 1px solid black;margin-bottom: 20px;"/></td>';
                                 $table .= '</tr>';
                             $table .= '</table>';
                         $table .= '</td>';
