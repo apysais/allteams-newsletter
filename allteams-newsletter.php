@@ -9,14 +9,14 @@
  * that starts the plugin.
  *
  * @link              allteams.nz
- * @since             1.2.0
+ * @since             1.0.0
  * @package           Allteams_Newsletter
  *
  * @wordpress-plugin
  * Plugin Name:       AllTeams Newsletter
  * Plugin URI:        allteams.nz
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.2.0
+ * Version:           1.2.1
  * Author:            AllTeams
  * Author URI:        allteams.nz
  * License:           GPL-2.0+
@@ -30,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'PLUGIN_NAME_VERSION', '1.1.0' );
+define( 'PLUGIN_NAME_VERSION', '1.2.1' );
 //define('TO_MAIL', 'mike@allteams.com');
 define('TO_MAIL', 'allan.paul.casilum@gmail.com');
 define('SUBJECT_MAIL', 'Test Mail');

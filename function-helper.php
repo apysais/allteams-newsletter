@@ -124,14 +124,17 @@ if( !function_exists('atn_mailpoet_shortcode_parse_events') ){
             }
         }
         $event_posts = atn_get_events($arg['numberposts'], $arg['event_start_before'], $arg['event-category']);
+		//print_r($event_posts);
         $table = '<table cellpadding="0" cellspacing="0">';
             if( $event_posts ){
                 $events = $event_posts->posts;
                 $event_count = $event_posts->post_count; 
                 foreach($events as $key => $val){ 
-                    
+                    $is_all_day = eo_is_all_day($val->ID);
                     $start_date = eo_get_the_start('l j F y', $val->ID, $val->occurrence_id);
+                    $start_time = eo_get_the_start('h:i A', $val->ID, $val->occurrence_id);
                     $end_date = eo_get_the_end('l j F y', $val->ID, $val->occurrence_id);
+                    $end_time = eo_get_the_end('h:i A', $val->ID, $val->occurrence_id);
                     $current_events_venue_id = eo_get_venue($val->ID);
                     $address_details = eo_get_venue_address($current_events_venue_id);
                     $event_address = '';
@@ -164,9 +167,18 @@ if( !function_exists('atn_mailpoet_shortcode_parse_events') ){
                                 $table .= '<tr>';
                                     $table .= '<td align="left" style="font-family: arial,sans-serif; font-size: 14px; line-height: 20px !important; color: #666; padding-bottom: 20px;">';
                                         $table .= '<p>'.substr(strip_tags($val->post_content),0, 250).'...</p>';
-                                        $table .= '<p>Start Date : '.$start_date.'</p>';
-                                        $table .= '<p>End Date : '.$end_date.'</p>';
-                                        $table .= '<p>Location : '.$event_address.'</p>';
+                                        if( $is_all_day == 1 ) {
+											$table .= '<p>Date : '.$start_date.'</p>';
+											$table .= '<p>Time : All Day</p>';
+										} else {
+											$table .= '<p>Date : '.$start_date.'</p>';
+											$table .= '<p>Time : '.$start_time.' - '.$end_time.'</p>';
+										}
+                                        //$table .= '<p>Start Date : '.$start_date.'</p>';
+                                        //$table .= '<p>End Date : '.$end_date.'</p>';
+										if( trim($event_address) != '' ) {
+											$table .= '<p>Location : '.$event_address.'</p>';
+										}
                                     $table .= '</td>';
                                 $table .= '</tr>';
                                 $table .= '<tr>';
