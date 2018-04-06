@@ -23,8 +23,9 @@ if( !function_exists('atn_get_posts') ){
 }
 if( !function_exists('atn_mailpoet_shortcode_parse_posts') ){
     function atn_mailpoet_shortcode_parse_posts($mailpoet_shortcode = ''){
-        $atts = shortcode_parse_atts($mailpoet_shortcode);
-        $arg = array();
+        $atts = shortcode_parse_atts(strip_tags($mailpoet_shortcode));
+        //print_r($atts);
+		$arg = array();
         foreach($atts as $k => $v){
             $to_array = explode(':',$v);
             foreach($to_array as $to_arrayk => $to_arrayv){
@@ -43,6 +44,7 @@ if( !function_exists('atn_mailpoet_shortcode_parse_posts') ){
                 }
             }
         }
+		//print_r($arg);
         $wp_posts = atn_get_posts($arg['posts_per_page'], $arg['date_query'], $arg['category']);
         
         $table = '<table cellpadding="0" cellspacing="0">';
@@ -75,7 +77,7 @@ if( !function_exists('atn_mailpoet_shortcode_parse_posts') ){
                                 $table .= '</tr>';
                                 $table .= '<tr>';
                                     $table .= '<td align="left" style="font-family: arial,sans-serif; font-size: 14px; line-height: 20px !important; color: #666; padding-bottom: 20px;">';
-                                        $table .= substr(strip_tags($val->post_content),0, 250) . '...  ';
+                                        $table .= substr(strip_tags($val->post_content),0, 250) . '';
                                     $table .= '</td>';
                                 $table .= '</tr>';
                                 $table .= '<tr>';
@@ -101,14 +103,14 @@ if( !function_exists('atn_mailpoet_shortcode_parse_posts') ){
 if( !function_exists('atn_mailpoet_shortcode_parse_events') ){
     //[custom:allteams_newsletter_events post_per_page:5 show_upcoming_days:7 category:'']
     function atn_mailpoet_shortcode_parse_events($mailpoet_shortcode = ''){
-        $atts = shortcode_parse_atts($mailpoet_shortcode);
+        $atts = shortcode_parse_atts(strip_tags($mailpoet_shortcode));
         //print_r($atts);
         $arg = array();
         foreach($atts as $k => $v){
             $to_array = explode(':',$v);
             //print_r($to_array);
             foreach($to_array as $to_arrayk => $to_arrayv){
-                if( $to_arrayv == 'posts_per_page' ){
+                if( $to_arrayv == 'post_per_page' ){
                     $arg['numberposts'] = $to_array[1];
                 }
                 if( $to_arrayv == 'category' ){
@@ -119,21 +121,22 @@ if( !function_exists('atn_mailpoet_shortcode_parse_events') ){
                     }
                 }
                 if( $to_arrayv == 'show_upcoming_days' ){
-                    $arg['event_start_before'] = $to_array[1];
+                    $arg['event_start_before'] = '+'.$to_array[1].' days';
                 }
             }
         }
+		//print_r($arg);
         $event_posts = atn_get_events($arg['numberposts'], $arg['event_start_before'], $arg['event-category']);
 		//print_r($event_posts);
         $table = '<table cellpadding="0" cellspacing="0">';
             if( $event_posts ){
-                $events = $event_posts->posts;
-                $event_count = $event_posts->post_count; 
+                $events = $event_posts;
+                //$event_count = $event_posts->post_count; 
                 foreach($events as $key => $val){ 
                     $is_all_day = eo_is_all_day($val->ID);
-                    $start_date = eo_get_the_start('l j F y', $val->ID, $val->occurrence_id);
+                    $start_date = eo_get_the_start('l, j F, Y', $val->ID, $val->occurrence_id);
                     $start_time = eo_get_the_start('h:i A', $val->ID, $val->occurrence_id);
-                    $end_date = eo_get_the_end('l j F y', $val->ID, $val->occurrence_id);
+                    $end_date = eo_get_the_end('l, j F, Y', $val->ID, $val->occurrence_id);
                     $end_time = eo_get_the_end('h:i A', $val->ID, $val->occurrence_id);
                     $current_events_venue_id = eo_get_venue($val->ID);
                     $address_details = eo_get_venue_address($current_events_venue_id);
@@ -150,23 +153,23 @@ if( !function_exists('atn_mailpoet_shortcode_parse_events') ){
                         $table .= '<td class="pattern" width="600">';
                             $table .= '<table cellpadding="0" cellspacing="0">';
                                 $table .= '<tr>';
+                                    $table .= '<td align="left" style="font-family: arial,sans-serif; color: #333;">';
+                                        $table .= '<h2>'.$val->post_title.'</h2>';
+                                    $table .= '</td>';
+                                $table .= '</tr>';
+								$table .= '<tr>';
                                     $table .= '<td class="hero">';
                                         if ( has_post_thumbnail( $val->ID ) ) {
-                                            $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $val->ID ), 'medium' );
+                                            $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $val->ID ), 'large' );
                                             if ( ! empty( $large_image_url[0] ) ) {
-                                                $table .= '<img src="'.esc_url( $large_image_url[0] ).'" alt="" style="display: block; border: 0;" />';
+                                                $table .= '<img src="'.esc_url( $large_image_url[0] ).'" alt="" style="display: block; border: 0;" width="100%" />';
                                             }
                                         }
                                     $table .= '</td>';
                                 $table .= '</tr>';
                                 $table .= '<tr>';
-                                    $table .= '<td align="left" style="font-family: arial,sans-serif; color: #333;">';
-                                        $table .= '<h2>'.$val->post_title.'</h2>';
-                                    $table .= '</td>';
-                                $table .= '</tr>';
-                                $table .= '<tr>';
                                     $table .= '<td align="left" style="font-family: arial,sans-serif; font-size: 14px; line-height: 20px !important; color: #666; padding-bottom: 20px;">';
-                                        $table .= '<p>'.substr(strip_tags($val->post_content),0, 250).'...</p>';
+                                        $table .= '<p>'.substr(strip_tags($val->post_content),0, 250).'</p>';
                                         if( $is_all_day == 1 ) {
 											$table .= '<p>Date : '.$start_date.'</p>';
 											$table .= '<p>Time : All Day</p>';
@@ -182,7 +185,7 @@ if( !function_exists('atn_mailpoet_shortcode_parse_events') ){
                                     $table .= '</td>';
                                 $table .= '</tr>';
                                 $table .= '<tr>';
-                                    $table .= '<td align="left">';
+                                    $table .= '<td align="center">';
                                         $table .= '<a href="'.esc_url( get_permalink($val->ID) ).'">View this event</a>';
                                     $table .= '</td>';
                                 $table .= '</tr>';
@@ -209,7 +212,7 @@ if( !function_exists('atn_get_events') ){
             'numberposts' => $num_event_show,
             'event-category' => is_array($category) ? implode(',',$category) : $category
         );
-
+		//print_r($arg);
         $event_get_query = $event_query->query($arg);
         
         return $event_get_query;
@@ -218,7 +221,7 @@ if( !function_exists('atn_get_events') ){
 if( !function_exists('atn_mailpoet_shortcode_parse_gallery') ){
     //[custom:allteams_newsletter_gallery post_per_page:5 show_img_from_last:7]
     function atn_mailpoet_shortcode_parse_gallery($mailpoet_shortcode = ''){
-        $atts = shortcode_parse_atts($mailpoet_shortcode);
+        $atts = shortcode_parse_atts(strip_tags($mailpoet_shortcode));
         //print_r($atts);
         $arg = array();
         foreach($atts as $k => $v){

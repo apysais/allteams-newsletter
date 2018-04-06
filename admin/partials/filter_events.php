@@ -1,7 +1,7 @@
 <div class="filter-events wrap">
 	<h2>Upcoming Events</h2>
 	<h4>Default Shortcode for mailpoet</h4>
-	<code>[custom:allteams_newsletter_events post_per_page:<span class="span_event_posts_per_page">5</span> show_upcoming_days:<span class="span_event_show_upcoming_days">7</span> category:<span class="span_event_category">7</span>]</code>
+	<code>[custom:allteams_newsletter_events post_per_page:<span class="span_event_posts_per_page">5</span> show_upcoming_days:<span class="span_event_show_upcoming_days">7</span> category:<span class="span_event_category"></span>]</code>
 	<table class="form-table">
 		<tbody>
 			<tr>
@@ -33,5 +33,5 @@
 			</tr>
 		</tbody>
 	</table>
-	<code>[custom:allteams_newsletter_events post_per_page:<span class="span_event_posts_per_page">5</span> show_upcoming_days:<span class="span_event_show_upcoming_days">7</span> category:<span class="span_event_category">7</span>]</code>
+	<code>[custom:allteams_newsletter_events post_per_page:<span class="span_event_posts_per_page">5</span> show_upcoming_days:<span class="span_event_show_upcoming_days">7</span> category:<span class="span_event_category"></span>]</code>
 </div>

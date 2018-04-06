@@ -74,7 +74,7 @@ class ATN_Model_DataEventOrganiser{
 	**/
 	public function query($query_data = array()){
 		if ( is_plugin_active( 'event-organiser/event-organiser.php' ) ) {
-			$query = wp_parse_args($query_data, array(
+			/*$query = wp_parse_args($query_data, array(
 				'posts_per_page'   => -1,
 				'post_type'        => 'event',
 				'suppress_filters' => false,
@@ -85,15 +85,24 @@ class ATN_Model_DataEventOrganiser{
 				'showpastevents'   => true,
 				'no_found_rows'    => true,
 				'event_start_before'    => 'now',
-				'event_end_after'    => 'now',
+				'event_start_after'    => 'now',
+			));*/
+			//print_r($query_data);
+			$query = wp_parse_args($query_data, array(
+				'numberposts' => 10,
+				'showpastevents' => 1,
+				'event_start_before' => 'now',
+				'event_start_after' => 'now',
 			));
-			if ( ! empty( $query['numberposts'] ) ) {
-				$query['posts_per_page'] = (int) $query['numberposts'];
+			//print_r($query);
+			if ( $query['numberposts'] == '' || $query['numberposts'] == 0 ) {
+				$query['numberposts'] = -1;
 			}
 			//print_r($query);
-			$eo = new WP_Query($query);
-			if ( $eo->have_posts() ) {
-				wp_reset_postdata();
+			$eo = eo_get_events($query);
+			//print_r($eo);
+			if ( $eo ) {
+				//wp_reset_postdata();
 				return $eo;
 			}
 			return false;
