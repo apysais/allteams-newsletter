@@ -31,6 +31,10 @@ e.g.
 
 == Changelog ==
 
+= 1.3.1 =
+* Update the shortcodes for mailpoet
+* Update the plugin UI in the backend
+
 = 1.2.1 =
 * Admin remove preview html
 * Change date on shortcode, only Start date show
