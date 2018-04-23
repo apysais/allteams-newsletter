@@ -16,7 +16,7 @@
  * Plugin Name:       AllTeams Newsletter
  * Plugin URI:        allteams.nz
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.3.1
+ * Version:           1.3.2
  * Author:            AllTeams
  * Author URI:        allteams.nz
  * License:           GPL-2.0+
@@ -30,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'PLUGIN_NAME_VERSION', '1.3.1' );
+define( 'PLUGIN_NAME_VERSION', '1.3.2' );
 //define('TO_MAIL', 'mike@allteams.com');
 define('TO_MAIL', 'allan.paul.casilum@gmail.com');
 define('SUBJECT_MAIL', 'Test Mail');
@@ -92,7 +92,7 @@ function run_allteams_newsletter() {
 	$plugin = new Allteams_Newsletter();
 	$plugin->run();
 	allteams_news_letter_init_updater();
-	
+
 	new ATN_Admin_Newsletter;
 	//mailpoet shortcode
 	ATN_Model_MailPoet::get_instance();
@@ -124,7 +124,7 @@ function allteams_news_letter_init_updater(){
 
 function test(){
 	$sh = "[custom:allteams_newsletter_gallery posts_per_page:5 show_img_from_last:7]";
-	
+
 	if (strpos($sh, 'custom:allteams_newsletter_gallery') !== false) {
 		atn_mailpoet_shortcode_parse_gallery($sh);
 	}else{

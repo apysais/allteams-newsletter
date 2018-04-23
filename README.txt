@@ -4,7 +4,7 @@ Donate link: allteams.nz
 Tags: comments, spam
 Requires at least: 3.7
 Tested up to: 4.8.2
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,10 @@ e.g.
 == Screenshots ==
 
 == Changelog ==
+
+= 1.3.2 =
+* Update font style
+* Show message if no events
 
 = 1.3.1 =
 * Update the shortcodes for mailpoet
