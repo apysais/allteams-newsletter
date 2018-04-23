@@ -15,9 +15,9 @@ if( !function_exists('atn_get_posts') ){
             'posts_per_page' => $num_article,
             'category' => $category
         );
-        
+
         $query = $ds->query($arg);
-        
+
         return $query;
     }
 }
@@ -46,7 +46,7 @@ if( !function_exists('atn_mailpoet_shortcode_parse_posts') ){
         }
 		//print_r($arg);
         $wp_posts = atn_get_posts($arg['posts_per_page'], $arg['date_query'], $arg['category']);
-        
+
         $table = '<table cellpadding="0" cellspacing="0">';
             if( $wp_posts ){
                 $posts = $wp_posts->posts;
@@ -56,15 +56,15 @@ if( !function_exists('atn_mailpoet_shortcode_parse_posts') ){
                         $table .= '<td class="pattern" width="600">';
                             $table .= '<table cellpadding="0" cellspacing="0">';
                                 $table .= '<tr>';
-                                    $table .= '<td align="left" style="font-family: arial,sans-serif; color: #333;">';
-                                        $table .= '<h2>'.$val->post_title.'</h2>';
+                                    $table .= '<td valign="top" style="word-break:break-word;word-wrap:break-word;border-collapse:collapse;padding-bottom:20px;padding-right:20px">';
+                                        $table .= '<h2 style="text-align:left;padding:0;font-style:normal;font-weight:normal;margin:0 0 7.2px;color:#222222;font-family:\'Trebuchet MS\',\'Lucida Grande\',\'Lucida Sans Unicode\',\'Lucida Sans\',Tahoma,sans-serif;font-size:24px;line-height:38.4px">'.$val->post_title.'</h2>';
                                     $table .= '</td>';
                                 $table .= '</tr>';
                                 $table .= '<tr>';
                                     $table .= '<td class="hero">';
-                                        if ( has_post_thumbnail( $val->ID ) ) { 
+                                        if ( has_post_thumbnail( $val->ID ) ) {
                                             $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $val->ID ), 'large' );
-                                            if ( ! empty( $large_image_url[0] ) ) { 
+                                            if ( ! empty( $large_image_url[0] ) ) {
                                                 $table .= '<img src="'.esc_url( $large_image_url[0] ).'" alt="" width="100%" style="display: block; border: 0;" />';
                                             }
                                         }
@@ -76,7 +76,7 @@ if( !function_exists('atn_mailpoet_shortcode_parse_posts') ){
                                     $table .= '</td>';
                                 $table .= '</tr>';
                                 $table .= '<tr>';
-                                    $table .= '<td align="left" style="font-family: arial,sans-serif; font-size: 14px; line-height: 20px !important; color: #666; padding-bottom: 20px;">';
+                                    $table .= '<td align="left" style="word-break:break-word;word-wrap:break-word;text-align:left;border-collapse:collapse;color:#000000;font-family:Arial,\'Helvetica Neue\',Helvetica,sans-serif;font-size:16px;line-height:25.6px">';
                                         $table .= substr(strip_tags($val->post_content),0, 250) . '';
                                     $table .= '</td>';
                                 $table .= '</tr>';
@@ -95,8 +95,16 @@ if( !function_exists('atn_mailpoet_shortcode_parse_posts') ){
                         $table .= '<td class="pattern" width="100%"><hr style="border: 1px solid black;margin-bottom: 20px;"/></td>';
                     $table .= '</tr>';
                 }
-            $table .= '</table>';
-            }
+
+          } else {
+            $table .= '<tr>';
+                $table .= '<td align="left">';
+                    $table .= '<h2>There are no Posts</h2>';
+                $table .= '</td>';
+            $table .= '</tr>';
+          }
+
+        $table .= '</table>';
         return $table;
     }
 }
@@ -131,8 +139,8 @@ if( !function_exists('atn_mailpoet_shortcode_parse_events') ){
         $table = '<table cellpadding="0" cellspacing="0">';
             if( $event_posts ){
                 $events = $event_posts;
-                //$event_count = $event_posts->post_count; 
-                foreach($events as $key => $val){ 
+                //$event_count = $event_posts->post_count;
+                foreach($events as $key => $val){
                     $is_all_day = eo_is_all_day($val->ID);
                     $start_date = eo_get_the_start('l, j F, Y', $val->ID, $val->occurrence_id);
                     $start_time = eo_get_the_start('h:i A', $val->ID, $val->occurrence_id);
@@ -148,13 +156,13 @@ if( !function_exists('atn_mailpoet_shortcode_parse_events') ){
                         $event_city = $address_details['city'];
                         $event_state = $address_details['state'];
                     }
-                    
+
                     $table .= '<tr>';
                         $table .= '<td class="pattern" width="600">';
                             $table .= '<table cellpadding="0" cellspacing="0">';
                                 $table .= '<tr>';
-                                    $table .= '<td align="left" style="font-family: arial,sans-serif; color: #333;">';
-                                        $table .= '<h2>'.$val->post_title.'</h2>';
+                                    $table .= '<td valign="top" style="word-break:break-word;word-wrap:break-word;border-collapse:collapse;padding-bottom:20px;padding-right:20px">';
+                                        $table .= '<h2 style="text-align:left;padding:0;font-style:normal;font-weight:normal;margin:0 0 7.2px;color:#222222;font-family:\'Trebuchet MS\',\'Lucida Grande\',\'Lucida Sans Unicode\',\'Lucida Sans\',Tahoma,sans-serif;font-size:24px;line-height:38.4px">'.$val->post_title.'</h2>';
                                     $table .= '</td>';
                                 $table .= '</tr>';
 								$table .= '<tr>';
@@ -168,7 +176,7 @@ if( !function_exists('atn_mailpoet_shortcode_parse_events') ){
                                     $table .= '</td>';
                                 $table .= '</tr>';
                                 $table .= '<tr>';
-                                    $table .= '<td align="left" style="font-family: arial,sans-serif; font-size: 14px; line-height: 20px !important; color: #666; padding-bottom: 20px;">';
+                                    $table .= '<td align="left" style="word-break:break-word;word-wrap:break-word;text-align:left;border-collapse:collapse;color:#000000;font-family:Arial,\'Helvetica Neue\',Helvetica,sans-serif;font-size:16px;line-height:25.6px">';
                                         $table .= '<p>'.substr(strip_tags($val->post_content),0, 250).'</p>';
                                         if( $is_all_day == 1 ) {
 											$table .= '<p>Date : '.$start_date.'</p>';
@@ -199,6 +207,12 @@ if( !function_exists('atn_mailpoet_shortcode_parse_events') ){
                         $table .= '<td class="pattern" width="100%"><hr style="border: 1px solid black;margin-bottom: 20px;"/></td>';
                     $table .= '</tr>';
                 }//foeach posts
+            } else {
+              $table .= '<tr>';
+                  $table .= '<td align="left">';
+                      $table .= '<h2>There are no upcoming Events</h2>';
+                  $table .= '</td>';
+              $table .= '</tr>';
             }//if posts
         $table .= '</table>';
         return $table;
@@ -214,7 +228,7 @@ if( !function_exists('atn_get_events') ){
         );
 		//print_r($arg);
         $event_get_query = $event_query->query($arg);
-        
+
         return $event_get_query;
     }
 }
@@ -265,7 +279,7 @@ if( !function_exists('atn_mailpoet_shortcode_parse_gallery') ){
                                             }//foreach
                                         }//if( isset($val['images']['gallery']) )
                                     }//if(isset($val['images']) )
-                                    
+
                                 $table .= '</tr>';
                                 $table .= '<tr>';
                                 $table .= '<td >';
@@ -294,9 +308,9 @@ if( !function_exists('atn_get_galleries') ){
             'date_query' => $show_img_from_last_day,
             'posts_per_page' => $num_gallery_show
         );
-        
+
         $gallery_get_query = $gallery_obj->query($arg);
-        
+
         return $gallery_get_query;
     }
 }
