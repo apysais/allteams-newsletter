@@ -226,7 +226,7 @@ class ATN_View{
 		extract($data);
 		$template = $this->get_in_theme($template_file);
 		if( $template ){
-			//check in plugin
+			//check in theme
 			require $template;
 		}else{
 			return false;
